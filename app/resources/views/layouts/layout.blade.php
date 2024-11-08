@@ -31,23 +31,17 @@
                     </ul>
                     <form class="d-flex">
                         @if(Auth::check())
-                            <button class="btn btn-outline-dark" type="submit" href="{{ route('logout') }}" id="logout">
+                            <a href="{{ route('logout') }}">
                                 ログアウト
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                                </form>
-                                <script>
-                                    document.getElementById('logout').addEventListener('click', function(event) {
-                                    event.preventDefault();
-                                    document.getElementById('logout-form').submit();
-                                    });
-                                </script>
-                            </button>
+                            </a>
                         @else
                             <button class="btn btn-outline-dark" type="submit">
                                 <a class="my-navbar-item" href="{{ route('login') }}">ログイン</a>
                             </button>
                         @endif
+                            <button class="btn btn-outline-dark" type="submit">
+                                <a class="my-navbar-item" href="{{ route('create.page') }}">投稿</a>
+                            </button>
                     </form>
                 </div>
             </div>

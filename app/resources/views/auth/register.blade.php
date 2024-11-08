@@ -35,8 +35,8 @@
                 <label for="password-confirm">パスワード（確認）</label>
                 <input type="password" class="form-control" id="password-confirm" name="password_confirmation">
               </div>
-              <div class="text-right">
-                <button type="submit" class="btn btn-primary">送信</button>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">新規登録する</button>
               </div>
             </form>
           </div>

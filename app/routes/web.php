@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\RegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,19 @@ use App\Http\Controllers\DisplayController;
 
 Auth::routes();
 
+Route::get('/login', function(){
+    return view('auth.login');
+})->name('login');
+
+
 Route::group(['middleware' => 'auth'], function() {
 
-    Route::get('/mypage', [DisplayController::class, 'index']);
+    Route::get('/', [DisplayController::class, 'index']);
+    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+    // 考察データ追加
+    Route::get('/create_page', [RegistrationController::class, 'createPageForm'])->name('create.page');
+    Route::post('/create_page', [RegistrationController::class, 'createPage']);  
 
 });
 

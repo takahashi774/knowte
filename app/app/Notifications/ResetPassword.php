@@ -49,14 +49,6 @@ class ResetPassword extends Notification
     {
        // パスワードリセットのリンクを生成
        $actionUrl = url('password/reset', $this->token);
-       // ↓↓↓↓↓↓　カスタマイズしたメールテンプレートを使う処理　↓↓↓↓↓↓
-      
-       return (new MailMessage)
-            //　メールの送信元
-           ->from('〇〇＠△△.com', config('app.name'))
-           //　メールの件名
-           ->subject('パスワード再設定のご案内')
-           ->markdown('emails.reset-password', ['actionUrl' => $actionUrl]);  
     }
 
     /**
