@@ -29,13 +29,24 @@ Route::group(['middleware' => 'auth'], function() {
 
     // 考察データ追加
     Route::get('/create_page', [RegistrationController::class, 'createPageForm'])->name('create.page');
-    Route::post('/create_page', [RegistrationController::class, 'createPage']);  
-
+    Route::post('/create_page', [RegistrationController::class, 'createPage']);
+    
+    Route::group(['middleware' => 'can:view,post'], function() {
+        // 考察データ詳細
+        Route::get('/post/{post}/detail', [DisplayController::class, 'postDetail'])->name('post.detail');
+        // 掲示板へ公開
+        Route::get('/public_post/{post}', [RegistrationController::class, 'publicPost'])->name('public.post');
+        // 掲示板へ非公開
+        Route::get('/private_post/{post}', [RegistrationController::class, 'privatePost'])->name('private.post');
+        // 考察データ物理削除
+        Route::get('/destroy_post/{post}', [RegistrationController::class, 'destroyPost'])->name('destroy.post');
+    });
 });
 
 Route::get('/reset-link-expired', function () {
     return view('auth.passwords.reset_expired');
 });
+
 
 
 

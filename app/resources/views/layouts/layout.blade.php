@@ -5,13 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Knouwte</title>
+        <title>KnouwTE</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="public/assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ asset('js/scripts.js') }}"></script>
     </head>
     @yield('head')
     <body>
@@ -23,23 +27,23 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         @if(Auth::check())
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">ホーム</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#!">考察投稿</a></li>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/') }}">ホーム</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('create.page') }}">考察投稿</a></li>
                             <li class="nav-item"><a class="nav-link" href="#!">掲示板</a></li>
                         @else
                         @endif        
                     </ul>
                     <form class="d-flex">
                         @if(Auth::check())
-                            <a href="{{ route('logout') }}">
-                                ログアウト
-                            </a>
+                            <button class="btn btn-outline-dark  mx-2" type="submit">
+                                <a class="my-navbar-item" href="{{ route('logout') }}">ログアウト</a>
+                            </button>
                         @else
-                            <button class="btn btn-outline-dark" type="submit">
+                            <button class="btn btn-outline-dark mx-2" type="submit">
                                 <a class="my-navbar-item" href="{{ route('login') }}">ログイン</a>
                             </button>
                         @endif
-                            <button class="btn btn-outline-dark" type="submit">
+                            <button class="btn btn-outline-dark mx-2" type="submit">
                                 <a class="my-navbar-item" href="{{ route('create.page') }}">投稿</a>
                             </button>
                     </form>

@@ -1,28 +1,45 @@
-@extends('layouts.auth-layout')
+@extends('layouts.layout')
 @section('header')
-
-<section class="py-5">
+    <header class="py-4">
+        <div class="container px-4 px-lg-5 my-1">
+            <div class='d-flex justify-content-around mt-3'>
+                <a href="{{ url('/') }}">
+                    <button type='button' class='btn btn-primary'>一覧へ</button>
+                </a>
+                @if($post->post_flg == '0')
+                <a href="{{ route('public.post', ['post' => $post->id]) }}">
+                    <button type='button' class='btn btn-primary'>掲示板へ公開する</button>
+                </a>
+                @elseif($post->post_flg == '1')
+                <a href="{{ route('private.post', ['post' => $post->id]) }}">
+                    <button type='button' class='btn btn-primary'>非公開にする</button>
+                </a>
+                @endif
+            </div>
+        </div>
+    </header>
+    <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
-            <form method="post" action="{{ route('create.page') }}">
-            @csrf
-                <div class="mt-8">    
-                    <div class="w-full flex flex-col">
-                        <label for="title" class="font-semibold mt-4">タイトル</label>
-                        <input type="text" name="title" class="w-auto py-2 border border-gray-300 rounded-md" id="title">
+            <div class="row justify-content-center">
+                <div class="border col-7">
+                    <div class="row">
+                        <div class="col-md">
+                            @isset($post)
+                                <h2>{{ $post['title'] }}</h2>
+                                @if(!is_null($post['image']))
+                                    <img src="{{ asset('storage/'.$post->image) }}" >
+                                @endif
+                                <div>{!! nl2br(e($post['consideration'])) !!}</div>
+                            @endisset
+                        </div>
                     </div>
                 </div>
-            
-                <div class="w-full flex flex-col">
-                    <label for="consideration" class="font-semibold mt-4">本文</label> 
-                    <textarea name="consideration" class="w-auto py-2 border border-gray-300 rounded-md" id="consideration" cols="30" rows="5">
-                    </textarea>
-                </div>
-            
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">投稿</button>
-                </div>
-            </form>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+            <a href="{{ route('destroy.post', ['post' => $post->id]) }}">
+                <button type='button' class='btn btn-secondary'>削除</button>
+            </a>
+            </div>
         </div>
     </session>
-
 @endsection
