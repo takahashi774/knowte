@@ -4,7 +4,7 @@
         <div class="container px-4 px-lg-5 my-1">
             <div class='d-flex justify-content-around mt-3'>
                 <a href="{{ url('/') }}">
-                    <button type='button' class='btn btn-primary'>一覧へ</button>
+                    <button type='button' class='btn btn-primary'>編集</button>
                 </a>
                 @if($post->post_flg == '0')
                 <a href="{{ route('public.post', ['post' => $post->id]) }}">

@@ -41,6 +41,9 @@ Route::group(['middleware' => 'auth'], function() {
         // 考察データ物理削除
         Route::get('/destroy_post/{post}', [RegistrationController::class, 'destroyPost'])->name('destroy.post');
     });
+
+    // 掲示板
+    Route::get('/forum_page', [DisplayController::class, 'forumPage'])->name('forum.page');
 });
 
 Route::get('/reset-link-expired', function () {

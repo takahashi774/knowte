@@ -43,6 +43,20 @@ class DisplayController extends Controller
         ]);
     }
 
+    // 掲示板
+    public function index() {
+
+        $post = new Post;
+        $postAll = $post->where([
+            ['del_flg', '1'],
+        ])->get();
+
+
+        return view('forum',[
+            'posts' => $postAll,
+        ]);
+    }
+
 }
 
 ?>
