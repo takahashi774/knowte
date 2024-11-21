@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ScrollController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::get('/login', function(){
 Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/', [DisplayController::class, 'index']);
-    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+    Route::get('logout', 'Auth\LoginController@logout')->name('logout'); 
 
     // 考察データ追加
     Route::get('/create_page', [RegistrationController::class, 'createPageForm'])->name('create.page');
@@ -44,6 +45,11 @@ Route::group(['middleware' => 'auth'], function() {
 
     // 掲示板
     Route::get('/forum_page', [DisplayController::class, 'forumPage'])->name('forum.page');
+    // 考察データ詳細(掲示板閲覧用)
+    Route::get('/forum/{post}/detail', [DisplayController::class, 'forumDetail'])->name('forum.detail');
+
+    // 掲示板名前検索
+    Route::post('/forum_page', [DisplayController::class, 'searchDate']);
 });
 
 Route::get('/reset-link-expired', function () {

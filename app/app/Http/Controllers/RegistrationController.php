@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Post;
 
-use App\Http\Requests\CreateData;
-
 class RegistrationController extends Controller
 {
     //考察データ追加

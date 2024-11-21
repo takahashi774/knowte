@@ -36,9 +36,9 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-3">
-            <a href="{{ route('destroy.post', ['post' => $post->id]) }}">
-                <button type='button' class='btn btn-secondary'>削除</button>
-            </a>
+                <a href="{{ route('destroy.post', ['post' => $post->id]) }}">
+                    <button type='button' class='btn btn-secondary'>削除</button>
+                </a>
             </div>
         </div>
     </session>

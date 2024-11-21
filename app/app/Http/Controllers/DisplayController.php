@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 
-use App\Http\Requests\CreateData;
-
 use App\Post;
 
 class DisplayController extends Controller
@@ -44,11 +42,11 @@ class DisplayController extends Controller
     }
 
     // 掲示板
-    public function index() {
+    public function forumPage() {
 
         $post = new Post;
         $postAll = $post->where([
-            ['del_flg', '1'],
+            ['post_flg', '1'],
         ])->get();
 
 
@@ -57,6 +55,44 @@ class DisplayController extends Controller
         ]);
     }
 
+    // 詳細ページ(掲示板閲覧用)
+    public function forumDetail(Post $post) {
+
+        return view('forum_detail',[
+            'post' => $post,
+        ]);
+    }
+
+    // 掲示板タイトル検索
+    public function searchDate(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        if(!empty($keyword)) {
+            $post = new Post;
+        
+            $postAll = $post->where('title', 'LIKE', "%{$keyword}%")
+            ->where([
+                ['post_flg', '1'],
+            ])->get();
+
+            return view('forum', [
+                'posts' => $postAll, 
+                'keyword'  => $keyword,
+            ]);
+
+        }else {
+            $post = new Post;
+            $postAll = $post->where([
+                ['post_flg', '1'],
+            ])->get();
+
+
+            return view('forum',[
+                'posts' => $postAll,
+            ]);
+        }
+    }
 }
 
 ?>

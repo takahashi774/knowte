@@ -29,7 +29,7 @@
                         @if(Auth::check())
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/') }}">ホーム</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ route('create.page') }}">考察投稿</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#!">掲示板</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('forum.page') }}">掲示板</a></li>
                         @else
                         @endif        
                     </ul>
