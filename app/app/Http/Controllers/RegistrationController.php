@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Post;
 
+use App\User;
+
 class RegistrationController extends Controller
 {
     //考察データ追加
@@ -26,14 +28,15 @@ class RegistrationController extends Controller
 
             $post->title = $request->title;
             $post->consideration = $request->consideration;
-            $post->post_flg = $request->post_flg;
             $post->user_id = $id;
         }else {
-            $post->image = $request->file('image')->store('public/image');
+
+            $image_path = $request->file('image')->store('public/image');
+
+            $post->image = basename($image_path);
 
             $post->title = $request->title;
             $post->consideration = $request->consideration;
-            $post->post_flg = $request->post_flg;
             $post->user_id = $id;
         }
 
@@ -42,6 +45,34 @@ class RegistrationController extends Controller
 
         return redirect('/create_page');
     }
+
+    // 考察データ編集
+    public function editPostForm(Post $post) {
+
+        $id = Auth::id();
+
+        $types = Post::where([
+            ['user_id', $id],
+        ])->get();
+
+        return view('edit',[
+            'result' => $post,
+        ]);
+    }
+
+    // 考察データ更新
+    public function editIncome(Income $income, CreateData $request) {
+
+        $columns = ['amount', 'date', 'comment', 'type_id'];
+
+        foreach($columns as $column) {
+            $income->$column = $request->$column;
+        }
+        $income->save();
+
+        return redirect('/');
+    }
+
 
     // 考察データ（掲示板：公開）
     public function publicPost(Post $post) {
@@ -69,5 +100,13 @@ class RegistrationController extends Controller
         $post->delete();
 
         return redirect('/');
+    }
+
+    // 管理者ページ　ユーザー物理削除
+    public function destroyUser(User $user) {
+
+        $user->delete();
+
+        return redirect('/admin');
     }
 }

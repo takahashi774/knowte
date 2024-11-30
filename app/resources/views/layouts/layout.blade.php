@@ -6,8 +6,6 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>KnouwTE</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="public/assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -15,7 +13,8 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="{{ asset('js/scripts.js') }}"></script>
+        <link href="https://use.fontawesome.com/releases/v6.2.0/css/all.css" rel="stylesheet">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     @yield('head')
     <body>
@@ -30,6 +29,9 @@
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url('/') }}">ホーム</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ route('create.page') }}">考察投稿</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ route('forum.page') }}">掲示板</a></li>
+                            @can('admin')
+                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.page') }}">管理者ページ</a></li>
+                            @endcan
                         @else
                         @endif        
                     </ul>

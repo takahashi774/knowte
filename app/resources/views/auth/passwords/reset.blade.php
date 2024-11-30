@@ -8,7 +8,7 @@
             <h1>パスワード再設定</h1>
         </div>
         <nav class="card mt-5">
-          <div class="card-header">会員登録</div>
+          <div class="card-header">新しいパスワード登録</div>
           <div class="card-body">
             @if($errors->any())
               <div class="alert alert-danger">

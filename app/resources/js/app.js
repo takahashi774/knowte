@@ -1,1 +1,2 @@
-require('./bootstrap');
+require('./bootstrap.js');
+require('./ajaxlike.js');

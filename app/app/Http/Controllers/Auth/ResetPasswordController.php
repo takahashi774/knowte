@@ -51,7 +51,7 @@ class ResetPasswordController extends Controller
         // トークンが期限切れているかどうかを確認
         if ($response === Password::PASSWORD_RESET) {
             // パスワードが正常にリセットされた場合のリダイレクト
-            return redirect('/mypage')->with('flash_message', 'パスワードを変更しました');
+            return redirect('/')->with('flash_message', 'パスワードを変更しました');
         } else {
             // トークンが期限切れている場合のリダイレクト
             return redirect('/reset-link-expired')->with('flash_message', 'リンクの有効期限が切れています');

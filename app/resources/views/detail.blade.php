@@ -3,7 +3,7 @@
     <header class="py-4">
         <div class="container px-4 px-lg-5 my-1">
             <div class='d-flex justify-content-around mt-3'>
-                <a href="{{ url('/') }}">
+                <a href="{{ route('edit.post', ['post' => $post->id]) }}">
                     <button type='button' class='btn btn-primary'>編集</button>
                 </a>
                 @if($post->post_flg == '0')
@@ -27,7 +27,7 @@
                             @isset($post)
                                 <h2>{{ $post['title'] }}</h2>
                                 @if(!is_null($post['image']))
-                                    <img src="{{ asset('storage/'.$post->image) }}" >
+                                    <img src="{{ asset('storage/image/'.$post->image) }}" >
                                 @endif
                                 <div>{!! nl2br(e($post['consideration'])) !!}</div>
                             @endisset

@@ -46,10 +46,16 @@ class ResetPassword extends Notification
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
-    {
-       // パスワードリセットのリンクを生成
-       $actionUrl = url('password/reset', $this->token);
-    }
+        {
+            // パスワードリセットのリンクを生成
+            $actionUrl = url('password/reset', $this->token);
+            
+           
+            return (new MailMessage)
+                ->from('〇〇＠△△.com', config('app.name'))
+                ->subject('パスワード再設定のご案内')
+                ->markdown('emails.reset-password', ['actionUrl' => $actionUrl]);
+        }
 
     /**
      * Get the array representation of the notification.

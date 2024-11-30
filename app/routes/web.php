@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\ScrollController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +28,20 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', [DisplayController::class, 'index']);
     Route::get('logout', 'Auth\LoginController@logout')->name('logout'); 
 
+    // 管理者ページ
+    Route::group(['middleware' => ['auth', 'can:admin']], function () {
+        Route::get('/admin', [DisplayController::class, 'AdminPage'])->name('admin.page');
+    });
+    // 管理者ページ　タイトル＆ユーザー名検索
+    Route::post('/admin', [DisplayController::class, 'searchUser']);
+    // 管理者ページ　ユーザー物理削除
+    Route::get('/destroy_user/{user}', [RegistrationController::class, 'destroyUser'])->name('destroy.user');
+    // 掲示板へ公開
+    Route::get('/public_post/{post}', [RegistrationController::class, 'publicPost'])->name('public.post');
+    // 掲示板へ非公開
+    Route::get('/private_post/{post}', [RegistrationController::class, 'privatePost'])->name('private.post');
+
+
     // 考察データ追加
     Route::get('/create_page', [RegistrationController::class, 'createPageForm'])->name('create.page');
     Route::post('/create_page', [RegistrationController::class, 'createPage']);
@@ -35,10 +49,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['middleware' => 'can:view,post'], function() {
         // 考察データ詳細
         Route::get('/post/{post}/detail', [DisplayController::class, 'postDetail'])->name('post.detail');
-        // 掲示板へ公開
-        Route::get('/public_post/{post}', [RegistrationController::class, 'publicPost'])->name('public.post');
-        // 掲示板へ非公開
-        Route::get('/private_post/{post}', [RegistrationController::class, 'privatePost'])->name('private.post');
+        // 考察データ編集
+        Route::get('/edit_post/{post}', [RegistrationController::class, 'editPostForm'])->name('edit.post');
+        Route::post('/edit_post/{post}', [RegistrationController::class, 'editPost']);
+        
         // 考察データ物理削除
         Route::get('/destroy_post/{post}', [RegistrationController::class, 'destroyPost'])->name('destroy.post');
     });
@@ -48,14 +62,15 @@ Route::group(['middleware' => 'auth'], function() {
     // 考察データ詳細(掲示板閲覧用)
     Route::get('/forum/{post}/detail', [DisplayController::class, 'forumDetail'])->name('forum.detail');
 
-    // 掲示板名前検索
+    // 掲示板タイトル検索
     Route::post('/forum_page', [DisplayController::class, 'searchDate']);
+
+    // いいね機能
+    Route::post('/ajaxlike', 'LikeController@ajaxlike')->name('posts.ajaxlike');
 });
 
+// パスワードリセット
 Route::get('/reset-link-expired', function () {
     return view('auth.passwords.reset_expired');
 });
-
-
-
 

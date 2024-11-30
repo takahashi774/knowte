@@ -27,16 +27,16 @@
                         <label for="password">パスワード</label>
                         <input type="password" class="form-control" id="password" name="password" />
                     </div>
+                    <div class="text-right">
+                        <div><a href="{{ route('register') }}">>>新規登録はこちら</a></div>
+                        <div><a href="{{ route('password.request') }}">>>パスワードお忘れの方</a></div>
+                    </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">ログイン</button>
                     </div>
                 </form>
             </div>
             </nav>
-            <div class="text-right">
-            <a href="{{ route('register') }}">>>新規登録はこちら</a>
-            <a href="{{ route('password.request') }}">>>パスワードお忘れの方</a>
-            </div>
         </div>
         </div>
     </div>
