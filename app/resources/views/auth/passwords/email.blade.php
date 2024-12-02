@@ -11,12 +11,12 @@
             <div class="card-body">
                 <p>ご利用中のメールアドレスを入力してください</p>
                 <p>パスワード再設定のためのURLをお送りします</p>
-                <form method="POST" action="{{ route('password.email') }}">
+                <form action="{{ route('password.email') }}" method="POST">
                     @csrf
                     <div>
                         <label>メールアドレス</label>
-                        <input type="text" name="mail" value="{{ old('mail') }}">
-                        <span>{{ $errors->first('mail') }}</span>
+                        <input type="text" name="email" value="{{ old('email') }}">
+                        <span>{{ $errors->first('email') }}</span>
                     </div>
                     <div>
                         <div><a href="{{ route('login') }}">戻る</a></div>

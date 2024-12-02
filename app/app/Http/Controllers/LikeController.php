@@ -21,8 +21,7 @@ class LikeController extends Controller
         $post_id = $request->post_id;
         $like = new Like;
         $post = Post::findOrFail($post_id);
-
-        Log::debug($request);
+        
 
         // 空でない（既にいいねしている）なら
         if ($like->exists($id, $post_id)) {

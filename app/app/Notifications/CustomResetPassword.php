@@ -52,9 +52,13 @@ class ResetPassword extends Notification
             
            
             return (new MailMessage)
-                ->from('〇〇＠△△.com', config('app.name'))
-                ->subject('パスワード再設定のご案内')
-                ->markdown('emails.reset-password', ['actionUrl' => $actionUrl]);
+                ->subject('パスワード再設定')
+                ->greeting('平素よりアプリをご利用いただきありがとうございます')
+                ->line('下のボタンをクリックしてパスワードを再設定してください。')
+                ->action(__('パスワードを再設定'), url(config('app.url').route('password.reset', $this->token, false)))
+                ->line('もしこのメールに心当たりがない場合は、そのまま削除してください。');
+                
+        
         }
 
     /**

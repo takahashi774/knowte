@@ -5,19 +5,12 @@
     <div class="row justify-content-center">
         <div class="col col-md-offset-3 col-md-6">
         <div class="text-center mt-4">
-            <h1>パスワード再設定</h1>
+            <h1>KnowTE</h1>
         </div>
         <nav class="card mt-5">
-          <div class="card-header">新しいパスワード登録</div>
+          <div class="card-header">パスワード再設定</div>
           <div class="card-body">
-            @if($errors->any())
-              <div class="alert alert-danger">
-                @foreach($errors->all() as $message)
-                  <p>{{ $message }}</p>
-                @endforeach
-              </div>
-            @endif
-            <form action="{{ route('register') }}" method="POST">
+            <form action="{{ route('password.update') }}" method="POST">
               @csrf
               <div class="form-group">
                 <label for="password">新しいパスワード</label>
@@ -27,6 +20,8 @@
                 <label for="password-confirm">新しいパスワード（確認）</label>
                 <input type="password" class="form-control" id="password-confirm" name="password_confirmation">
               </div>
+              <input type=hidden id="email" name="email" value="{{ $email }}">
+              <input type=hidden id="token" name="token" value="{{ $token }}">
               <div class="text-center">
                 <button type="submit" class="btn btn-primary">パスワード再設定する</button>
               </div>

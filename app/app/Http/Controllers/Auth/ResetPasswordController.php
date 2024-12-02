@@ -29,32 +29,32 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    // protected $redirectTo = '/';
 
-    public function reset(Request $request)
-    {
-        // バリデーション
-        $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|confirmed|min:8',
-        ]);
+    // public function reset(Request $request)
+    // {
+    //     // バリデーション
+    //     $request->validate([
+    //         'token' => 'required',
+    //         'email' => 'required|email',
+    //         'password' => 'required|confirmed|min:8',
+    //     ]);
 
-        // パスワードリセットのロジックを実行
-        $response = $this->broker()->reset(
-            $this->credentials($request),
-            function ($user, $password) {
-                $this->resetPassword($user, $password);
-            }
-        );
+    //     // パスワードリセットのロジックを実行
+    //     $response = $this->broker()->reset(
+    //         $this->credentials($request),
+    //         function ($user, $password) {
+    //             $this->resetPassword($user, $password);
+    //         }
+    //     );
 
-        // トークンが期限切れているかどうかを確認
-        if ($response === Password::PASSWORD_RESET) {
-            // パスワードが正常にリセットされた場合のリダイレクト
-            return redirect('/')->with('flash_message', 'パスワードを変更しました');
-        } else {
-            // トークンが期限切れている場合のリダイレクト
-            return redirect('/reset-link-expired')->with('flash_message', 'リンクの有効期限が切れています');
-        }
-    }
+    //     // トークンが期限切れているかどうかを確認
+    //     if ($response === Password::PASSWORD_RESET) {
+    //         // パスワードが正常にリセットされた場合のリダイレクト
+    //         return redirect('/')->with('flash_message', 'パスワードを変更しました');
+    //     } else {
+    //         // トークンが期限切れている場合のリダイレクト
+    //         return redirect('/reset-link-expired')->with('flash_message', 'リンクの有効期限が切れています');
+    //     }
+    // }
 }

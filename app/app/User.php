@@ -6,9 +6,14 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use App\Notifications\CustomResetPassword;
+
+// use Illuminate\Auth\Passwords\CanResetPassword;
+
 class User extends Authenticatable
 {
     use Notifiable;
+    // use CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -39,10 +44,10 @@ class User extends Authenticatable
 
 
     // パスワードリセット
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new CustomResetPassword($token));
-    }
+    // public function sendPasswordResetNotification($token)
+    // {
+    //     $this->notify(new CanResetPassword($token));
+    // }
 
 
     public function post() {

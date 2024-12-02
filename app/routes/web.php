@@ -5,6 +5,11 @@ use App\Http\Controllers\DisplayController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\LikeController;
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +31,7 @@ Route::get('/login', function(){
 Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/', [DisplayController::class, 'index']);
-    Route::get('logout', 'Auth\LoginController@logout')->name('logout'); 
+    Route::get('logout', [LoginController::class, 'logout'])->name('logout'); 
 
     // 管理者ページ
     Route::group(['middleware' => ['auth', 'can:admin']], function () {
@@ -66,11 +71,20 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/forum_page', [DisplayController::class, 'searchDate']);
 
     // いいね機能
-    Route::post('/ajaxlike', 'LikeController@ajaxlike')->name('posts.ajaxlike');
+    Route::post('/ajaxlike', [LikeController::class, 'ajaxlike'])->name('posts.ajaxlike');
 });
 
 // パスワードリセット
-Route::get('/reset-link-expired', function () {
-    return view('auth.passwords.reset_expired');
-});
+// リセット用　メールフォーム
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+// 入力したメールへPOST送信
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+// メールから再設定フォーム
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+//  再設定フォームからPOST送信(更新)
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+// Route::get('/reset-link-expired', function () {
+//     return view('auth.passwords.reset_expired');
+// });
 

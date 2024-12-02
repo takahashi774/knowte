@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Password;
 use App\User;
 use Illuminate\Database\QueryException;
 
+use Illuminate\Support\Facades\Log;
+
 class ForgotPasswordController extends Controller
 {
     /*
@@ -25,24 +27,36 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
-    public function sendResetLinkEmail(Request $request)
-    {
-        $this->validateEmail($request);
-        $response = $this->broker()->sendResetLink(
-            $request->only('email')
-        );
+    // public function showLinkRequestForm()
+    // {
+    //     return view('auth.passwords.email');
+    // }
 
-        // 正常に完了した場合
-        if($response == Password::RESET_LINK_SENT) {
-            return back()->with('flash_message', 'メールを送信しました！');
-        }
+    // public function sendResetLinkEmail(Request $request)
+    // {
 
-        // バリデーションエラーが発生した場合
-        return back()
-            ->withInput($request->only('email'))
-            ->withErrors(['email' => 'メールを送信できませんでした。メールアドレスをご確認ください']);
+    //     Log::debug($request->only('mail'));
+
+    //     $this->validateEmail($request);
+    //     $response = $this->broker()->sendResetLink(
+    //         $request->only('mail')
+    //     );
+
+    //     Log::debug('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+
+    //     // 正常に完了した場合
+    //     if($response == Password::RESET_LINK_SENT) {
+    //         return back()->with('flash_message', 'メールを送信しました！');
+    //     }
+
+    //     Log::debug('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
+
+    //     // バリデーションエラーが発生した場合
+    //     return back()
+    //         ->withInput($request->only('email'))
+    //         ->withErrors(['email' => 'メールを送信できませんでした。メールアドレスをご確認ください']);
     
-    }
+    // }
     /**
      * Create a new controller instance.
      *
